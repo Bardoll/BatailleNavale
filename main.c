@@ -13,9 +13,9 @@ void bonjour(){
 }
 
 void initialGrille(char grille[i][j]){
-	for(int i=0; i<9; i++){
-		for(int j=0; j<9; j++){
-				grille[i][j]="~";
+	for(i=0; i<9; i++){
+		for(j=0; j<9; j++){
+				grille[i][j]='~';
 		}
 	}
 }
@@ -23,9 +23,9 @@ void initialGrille(char grille[i][j]){
 
 
 void afficherGrille(char grille[i][j]){
-	for(int i=0; i<9; i++){
-		for(int j=0; j<9; j++){
-			printf("%s", &grille[i][j]);
+	for(i=0; i<9; i++){
+		for(j=0; j<9; j++){
+			printf("%c", grille[i][j]);
 		}
 		printf("\n");
 	}
@@ -36,6 +36,7 @@ int main(void){
 
 	/* VARIABLES *****************************************/
 		char grille[10][10]; //plateau de jeu
+		int jeu =1;
 
 	/* CODE **********************************************/
 
@@ -43,6 +44,7 @@ int main(void){
 		bonjour();				//dire bonjour (parce qu'on est poli)
 		initialGrille(grille); //on initialise le plateau
 		afficherGrille(grille); //on affiche le plateau
+		jeu++;
 	}while(jeu==1);
 	
 }
