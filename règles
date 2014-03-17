@@ -1,0 +1,47 @@
+L'objectif est de concevoir un jeu de bataille navale multi-joueurs.
+Le jeu :
+- Chaque joueur possède une zone maritime embrumée de 10x10 cases où se cachent 5 navires de guerre :
+ * Porte-avion (5 cases)
+ * Croiseur (4 cases)
+ * Contre-Torpilleur (3 cases)
+ * Sous-marin (3 cases)
+ * Torpilleur (2 cases)
+- Chaque navire non-détruit tire un obus à chaque tour de jeu en désignant une case de l'un des autres joueurs : Numéro du joueur, Colonne (A->L) et Ligne (1->10)
+- Lorsque tous les obus ont été tirés, chaque joueur annonce aux autres les coups au but qu'il a reçus, et le nom du navire coulé/détruit. 
+- Le joueur gagnant est le dernier à posséder un navire vivant.
+
+L'aspect graphique du jeu n'est pas primordial, et ne sera pas évalué dans la note du projet. Tout comme la chasse aux tricheurs !
+La lecture d'un fichier texte ou la saisie manuelle des navires sont deux moyens acceptables (mais pas les seuls) de placer ses navires avant de rejoindre une partie.
+
+Au niveau du déroulement de la partie, je vous propose une approche en deux étapes :
+- un joueur se connecte à un autre joueur (@IP + port) en indiquant son nom
+- ce dernier lui envoie son nom et la liste des joueurs déjà connectés
+- chaque joueur annonce qu'il est prêt
+- lorsque tous les joueurs sont prêts, la partie commence, et aucun autre joueur ne peut plus se connecter
+- lorsqu'il ne reste plus de joueurs, le gagnant est envoyé à tout le monde et la connexion réseau s'arrête.
+- un joueur qui disparaît (plantage de machine, de programme, de réseau, virus, catastrophe nucléaire, ...) est réputé perdant. La partie continue sans lui.
+
+Je vous propose un rendu en 2 temps : 
+1) D'ici à mercredi soir prochain (26/02/2014 23H59 GMT), chaque groupe (maximum 2 étudiants) m'envoie un petit document (1-2 pages maxi) présentant le protocole réseau qu'il choisirait. 
+  => TCP/UDP/Autre ?
+  => Quelles données à quel moment ?
+  => Détection d'un joueur 'défectueux' ?
+  => Et surtout *expliquez* vos choix !!!
+2) Vendredi 28/02/2014, je vous envoie un protocole unique que tous les groupes devront utiliser afin de pouvoir jouer les uns avec les autres.
+3) D'ici à dimanche 23/03/2014, chaque groupe m'envoie ses fichiers C, H et Makefiles/script de compilation (pas de binaire).
+4) Durant la dernière semaine de cours, j'organiserai une grande partie en salle réseau, où chaque groupe pourra affronter tous les autres !
+    J'amènerai un client Java pour vérifier si vous respectez bien les règles de bienséance sur le réseau... (ordre des octets, structures, ...)
+
+
+Le protocole sera évalué sur 6 points.
+La partie connexion / début de partie sur 7 points.
+La partie jeu sur 7 points.
+
+
+La notation du protocole s'intéressera à votre capacité à anticiper les difficultés et à leur apporter une solution.
+Les deux parties programmation seront notées sur la qualité du code : lisibilité (nom des variables), test des fonctions réseau, résistance aux erreurs et aux déconnections, gestion de la mémoire (pas de fuites), gestion des zombis (mort aux zombis !), fermeture des sockets, ....
+2 points seront réservés pour les 2 parties programmation pour le bon fonctionnement du logiciel au cours de la partie globale : 
+- réussit à rejoindre une partie
+- réussit à lancer une partie
+- réussit à attaquer au moins une fois
+- réussit à afficher le gagnant
