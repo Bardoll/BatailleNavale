@@ -10,13 +10,21 @@ int main(void){
 	/* CODE **********************************************/
 
 	do{
-		bonjour();
+		bonjour();				//dire bonjour (parce qu'on est poli)
 		initialGrille(grille); //on initialise le plateau
 		afficherGrille(grille); //on affiche le plateau
 	}while(jeu==1);
 	
 }
 
+
+void bonjour(){
+	printf("Bienvenue dans le jeu Bataille navale !\n\n");
+	printf("Le but de ce jeu est de détruire tous les bateaux de l'adversaire en envoyant des missiles à chaque tour\n");
+	printf("Pour cela, vous disposez d'un plan de la zone où se cache votre ennemi\n");
+	printf("A chaque tour, entrez les coordonnées d'un point et un missile sera envoyé !\n");
+	printf("Bon courage soldat !\n\n\n");
+}
 
 void initialGrille(char grille[x][y]){
 	for(int i=0; i<9; i++){
@@ -28,7 +36,7 @@ void initialGrille(char grille[x][y]){
 
 
 
-char afficherGrille(char grille[x][y]){
+void afficherGrille(char grille[x][y]){
 	for(int i=0; i<9; i++){
 		for(int j=0; j<9; j++){
 			printf("%s", &grille[i][j]);
