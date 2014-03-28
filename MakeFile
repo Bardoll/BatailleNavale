@@ -1,0 +1,4 @@
+exercuter : compiler
+	./bataille
+compiler : bataille.c 
+	gcc -o bataille bataille.c -w

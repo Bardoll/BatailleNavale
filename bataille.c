@@ -16,7 +16,7 @@ void afficherGrille(char grille[nligne][ncolonne]); // afficher le plateau actue
 void feu(char grille[nligne][ncolonne],int x, int y); // permet au joueur de rentrer les coordonnées de ses missiles
 void verifMissile(char grille[nligne][ncolonne],int x, int y); // Vérifie si les missiles envoyés ont touchés
 int check_2(char grille[nligne][ncolonne],int x, int y); // Vérifie la grille que le joueur voit
-void remplaceGrille(char grille[nligne][ncolonne], int x ,int y, int z); // affiche les x ou o sur la grille
+void remplaceGrille(char grille[nligne][ncolonne], int x ,int y, int z); // affiche les x ou o sur la grilleà 
 
 
 /* CODE *********************************************************************************/
@@ -25,12 +25,12 @@ int main(void)
 {
 	srand(time(NULL)); // fontion random
 	int game; // valeur de victoire
-	int row,col; // coordinate opertors
-	int counter; // keeps track of how many moves you make
-	int trans;// transition value to print correct letter on X/O on screen
-	int win; // when  player equals amount of ships on battlefield that have been hit
-	char grid[12][12]; // grid that carries initial value and coordinates of ships from computer
-	char grid_2[12][12];// "empty" grid that player sees
+	int row,col; // opérateurs pour les coordonnées
+	int counter; // compteur
+	int trans;
+	int win; // varaibel définissant si le joueur a gagné
+	char grid[12][12]; // grille contenant les bateaux placées par l'ordinateur
+	char grid_2[12][12];// grille vide que le joueur voit
 	int r,c,error;
 	int begin;
 
@@ -52,42 +52,42 @@ int main(void)
 		botBoat( grid, "destroyer" , 4);
 		botBoat( grid, "cruiser" , 3);
 		botBoat( grid, "vessel" , 2);
-		botBoat( grid_2, "~XO" , 4); // initial character is tilde to
-		botBoat( grid_2, "~XO" , 3);  // different values do matter since it is the overlay and only sets
+		botBoat( grid_2, "~XO" , 4); 
+		botBoat( grid_2, "~XO" , 3); 
 		botBoat( grid_2, "~XO" , 2);
 
 		for(r=0;r<10;r++)
 		{
 			for(c=0;c<10;c++)
 			{
-				if( grid[r][c] != '~'){       // if the amount of ships is less than 9 ships the game resets itself
+				if( grid[r][c] != '~'){       // Vérification que tous les bateaux soient bien placés
 					error++;
 				}
 			}
 		}
 
 		if( error == 8 || error != 9){
-			printf(" ERROR: Only 8 ships were generated... Game reset\n\n");  // if the amount of ships is less than 9 ships the game resets itself
+			printf(" ERROR: Only 8 ships were generated... Game reset\n\n");  
 			begin = 1;
 		}
 		else{
-			begin = 0;
+			begin = 0;				//si tout va bien, la partie commence
 		}
 	}while(begin == 1);
 
 
 
-	do{       // les bateaux sont placés
+	do{       
 
-		afficherGrille(grid_2);// "empty grid" is shown
+		afficherGrille(grid_2);// on affiche la grille vide
 		printf(" Ennemis detectes ! Feu a volonte !!\n\n");
-		printf(" Capitaine, entrez les coordonnees des missiles !\n\n"); // coordinates inputed by user
+		printf(" Capitaine, entrez les coordonnees des missiles !\n\n"); 
 		printf(" - Entrez un chiffre puis appuyez sur 'entree'\n\n\n");
 		printf("(ligne): ");
-		scanf("%d", &row);
+		scanf("%d", &row);				//entrée des coordonnées par le joueur
 		printf("(colonne): ");
 		scanf("%d", &col);
-		if( row > 9 || row<0 ||  col > 9 ||  col <0){
+		if( row > 9 || row<0 ||  col > 9 ||  col <0){				//vérif des coordonnées
 			printf("coordonnees non correctes, veuillez les entrez de nouveau\n");
 			system("PAUSE");
 			continue;
@@ -98,22 +98,22 @@ int main(void)
 			continue;
 		}
 
-		feu(grid,row,col);// re-enters coordinate as either hit or miss
+		feu(grid,row,col);
 
-		check_2(grid,row, col);// returns integer value for hit or miss calculations and printing 'x' or 'o'
-		trans = check_2(grid,row, col); // trans value is input to next function to tell an 'x' or 'o'
+		check_2(grid,row, col); //retourne la valeur de retour et affiche 'x' ou 'o'
+		trans = check_2(grid,row, col); 
 
-		if(trans == 1){ // TRANSintion code to transer coordinate information to player graph.
-			win++;   // if X is printed (hit), then win increments until nine coodinates are hit
+		if(trans == 1){
+			win++;   // Si le missile touche, la valeur win s'incrémente jusqu'à 9
 		}
-		remplaceGrille(grid_2,row,col,trans);// prints x or o to grid 2 ( user)
-		afficherGrille(grid_2);// displays "current" grid postioning
-		verifMissile(grid,row,col); // prints hit or miss
+		remplaceGrille(grid_2,row,col,trans);// remplace la cellule visé par le joueur
+		afficherGrille(grid_2);// affiche la nouvelle grille
+		verifMissile(grid,row,col); 
 		system("pause");
-		counter++;// counts moves made
+		counter++;// compte le coup effectué
 
 		if(win == iWIN){
-			game = 0;  // end_game
+			game = 0;  // fin de la partie
 		}
 
 	}while(game == 1 && win <= iWIN);
@@ -121,7 +121,7 @@ int main(void)
 		system("CLS");
 		printf("You win!\n");
 		printf("Captain... you saved us!!!\n\n");
-		printf("You completed the game in %d move(s)!\n\n",counter);   // } statistics once game ended
+		printf("You completed the game in %d move(s)!\n\n",counter);  
 	}
 	if( game == 2){
 		system("PAUSE");
@@ -131,7 +131,7 @@ int main(void)
 	system("PAUSE");
 	return 0;
 
-}/*  ------ End of Battleship --------- */
+}/* Fin du champ de bataille */
 
 
 
@@ -153,23 +153,23 @@ void bonjour() // fonction d'accueil
 
 } // end function
 
-void grilleInitiale(char grille[nligne][ncolonne]) //Sets the grille initially to all open spaces before ships inhabit water.
+void grilleInitiale(char grille[nligne][ncolonne]) //Initialise la grille de départ
 {
 	int i,j;
 	for(i=0;i<10;i++)
-	{                                            // printing algorithm
+	{                                           
 		for( j=0;j<10;j++)
 		{
 			grille[i][j]='~';
 		}
 	}
-} // end function
+} 
 
-void afficherGrille(char grille[nligne][ncolonne]) //Displays the entire 10x10 grille.
+void afficherGrille(char grille[nligne][ncolonne]) //affiche la grille
 {
 	int i,j;
 	system("CLS");
-	printf("  0 1 2 3 4 5 6 7 8 9\n\n");      // printing algorithm
+	printf("  0 1 2 3 4 5 6 7 8 9\n\n");      
 	for(i=0;i<10;i++)
 	{
 		printf("%d",i);
@@ -179,25 +179,25 @@ void afficherGrille(char grille[nligne][ncolonne]) //Displays the entire 10x10 g
 		}
 		printf("\n");
 	}
-} // end function
+} 
 
-void botBoat(char grille[nligne][ncolonne], char ship[50], int size) // logic that places ships
-{                                             // ^^ ship character ( ship[50] to give enough space for any name and avoid error)
+void botBoat(char grille[nligne][ncolonne], char ship[50], int size) // algo qui place les bateaux de l'ordinateur
+{                                            
 	int row=0;
 	int col=0;
-	int go; // tests integer value if coordinate is true
+	int go; 
 	go=1;
 	char dir;
-	int test;// tests direction based on boundaries of matrix
-	int ai;// random direction... may overlap
+	int test;
+	int ai;
 
 
 	do
 	{
-		row = rand()%10;    /* } pseudo random coordinate system */
+		row = rand()%10;    /* } pseudo random système de coordonées */
 		col = rand()%10;
 
-		if(row>9 || row<0 || col<0 || col>9)
+		if(row>9 || row<0 || col<0 || col>9)    //on vérifie qu'il n'y a pas d'erreurs
 		{
 			go=0;
 		}
@@ -212,12 +212,12 @@ void botBoat(char grille[nligne][ncolonne], char ship[50], int size) // logic th
 			row = rand()%10;
 			col = rand()%10;
 
-			if(row>9 || row<0 || col<0 || col>9) // just in case there is an error in modulus operator
+			if(row>9 || row<0 || col<0 || col>9) 
 			{
 				go=0;
 				continue;
 			}
-			else if(grille[row][col]!='~') // if tilde is not present the coordinate is not available. Msy not be working
+			else if(grille[row][col]!='~') 
 			{
 				go=0;
 				continue;
@@ -240,35 +240,35 @@ void botBoat(char grille[nligne][ncolonne], char ship[50], int size) // logic th
 		}
 		ai = rand()%4+1;
 
-		switch(ai){ // psedudo random direction
+		switch(ai){ // pseudo random direction
 		case 1:
-			dir = 'l'; // left
+			dir = 'l'; // gauche
 			break;
 		case 2:
-			dir = 'u'; // up
+			dir = 'u'; // haut
 			break;
 		case 3:
-			dir = 'd'; // down
+			dir = 'd'; //  bas
 			break;
 		case 4:
-			dir = 'r'; // right
+			dir = 'r'; // droite
 			break;
 		default:
-			test = 0; // re-loops if no direction is randomized
+			test = 0;
 			continue;
 			break;
 		}
 
 		switch(dir)
 		{
-		int i,x; // i representing row, x representing column (j)
+		int i,x; // i=ligne, x=colonne (j)
 
 		case 'l':
-			if(col-size>=1) // makes sure it is not past the boundary of the grid
+			if(col-size>=1) 
 			{
-				for(i=0;i<=size-1;i++)// increments row
+				for(i=0;i<=size-1;i++)
 				{
-					if(grille[row][col-i]!='~') // tests if present character is there.   ****************May not be working as overlap is possible.
+					if(grille[row][col-i]!='~') // test si il y a déja un bateau ou pas
 					{
 						test=0;
 						continue; // reloop
@@ -278,25 +278,25 @@ void botBoat(char grille[nligne][ncolonne], char ship[50], int size) // logic th
 			else
 			{
 				test=0;
-				continue; // reloop
+				continue; 
 			}
 			test = 1;
 			if(test==1)
 			{
-				for(x=0;x<=size-1;x++)  //increments column to print based on direction and value of x coordinate
+				for(x=0;x<=size-1;x++)  //incrémente la colonne en fonction de la direction et valeur de x
 				{
-					grille[row][col-x]=ship[0]; // the ships first letter
+					grille[row][col-x]=ship[0]; // la première lettre du bateau
 				}
 			}
 			break;
 
-			/* all cases below follow the same algorithm as above */
+			
 		case 'r':
 			if(col+size<=10)
 			{
 				for(i=0;i<=size-1;i++)
 				{
-					if(grille[row][col+i]!= '~') // increments one column if anything not a tilde is present in array memory
+					if(grille[row][col+i]!= '~')
 					{
 						test=0;
 						continue;
@@ -313,7 +313,7 @@ void botBoat(char grille[nligne][ncolonne], char ship[50], int size) // logic th
 			{
 				for(x=0;x<=size-1;x++)
 				{
-					grille[row][col+x]=ship[0]; // the ships first letter
+					grille[row][col+x]=ship[0]; 
 				}
 			}
 			break;
@@ -323,7 +323,7 @@ void botBoat(char grille[nligne][ncolonne], char ship[50], int size) // logic th
 			{
 				for(i=0;i<=size-1;i++)
 				{
-					if(grille[row-i][col]!= '~')  // increments one column if anything not a tilde is present in array memory
+					if(grille[row-i][col]!= '~') 
 					{
 						test=0;
 						continue;
@@ -365,18 +365,18 @@ void botBoat(char grille[nligne][ncolonne], char ship[50], int size) // logic th
 			test = 1;
 			if(test==1)
 			{
-				for(x=0;x<=size-1;x++) // incrementation by row
+				for(x=0;x<=size-1;x++) 
 				{
-					grille[row+x][col]=ship[0]; // the ships first letter
+					grille[row+x][col]=ship[0]; 
 				}
 			}
 		}
 
 	}while(test==0);
-} // end function
+} 
 
 
-void feu(char grille[nligne][ncolonne], int x,int y){ // feu function allow users to input coordinate of attack
+void feu(char grille[nligne][ncolonne], int x,int y){  //permet à l'utilisateur d'entrer les coordonnées de ses attaques
 
 	char hit_miss[10];
 	int status;
@@ -385,10 +385,10 @@ void feu(char grille[nligne][ncolonne], int x,int y){ // feu function allow user
 	do{
 
 		while( x > 9 || x<0 ||  y > 9 || y<0){
-			printf("invalid entry... re-enter coordinates\n");   // avoids invalid entry after same coordinates are entered
-			printf("(row)y: ");
+			printf("entree non valide... Entrez les a nouveau !\n");   // on vérifie les coordonnées
+			printf("(ligne)y: ");
 			scanf("%d", &x);
-			printf("(column)x: ");
+			printf("(colonne)x: ");
 			scanf("%d", &y);
 			continue;
 		}
@@ -403,7 +403,7 @@ void feu(char grille[nligne][ncolonne], int x,int y){ // feu function allow user
 			hit_miss[0] = 'X';
 			status = 0;
 		}
-		else {                    // prints respective x or o on background grid (grid 1)
+		else {                    
 			hit_miss[0] = 'O';
 			status = 0;
 		}
@@ -411,7 +411,7 @@ void feu(char grille[nligne][ncolonne], int x,int y){ // feu function allow user
 	grille[x][y]= hit_miss[0];
 }
 
-int check_2(char grille[nligne][ncolonne],int x, int y){ // feu function allow users to input coordinate of attack for seconde grid
+int check_2(char grille[nligne][ncolonne],int x, int y){
 	if(grille[x][y]=='X'){
 		return 1;
 	}
@@ -419,7 +419,7 @@ int check_2(char grille[nligne][ncolonne],int x, int y){ // feu function allow u
 		return 0;
 }
 
-void remplaceGrille(char grille[nligne][ncolonne], int x,int y, int z){ // prints respective x or o on screen
+void remplaceGrille(char grille[nligne][ncolonne], int x,int y, int z){ //on affiche X ou O à l'écran
 
 	if( z == 1 ){
 		grille[x][y] = 'X';
@@ -428,7 +428,7 @@ void remplaceGrille(char grille[nligne][ncolonne], int x,int y, int z){ // print
 }
 
 
-void verifMissile(char grille[nligne][ncolonne],int x, int y){ // feu function allow users to input coordinate of attack
+void verifMissile(char grille[nligne][ncolonne],int x, int y){ 
 	if(grille[x][y]=='X'){
 		printf("TOUCHE!\n\n");
 	}
